@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Welcome to Pacmania!</title>
+		<link rel="Stylesheet" href="spill-style.css" type="text/css" />
+		<!-- Eksternt stylesheet kun for å hente en spesiell font-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Silkscreen" />
+	</head>
+	<body>
+		<div class="header">
+			<a href="index.html">
+				<div class="pushBtn" id="leftBtn">Back</div>
+			</a>
+			<div class="scoreboard"></div>
+			<div class="hiddenBoxSmall">
+				<p>Player scores points for every dot Pacman eats</p>
+			</div>
+			<a href="pacman-info.html"><div class="pushBtn" id="rightBtn">More</div> </a>
+		</div>
+		<div class="mazeDiv">
+			<img id="maze-image" src="images/pacman-bg.png" alt="Pacman board" />
+			<div class="barrier" id="left"></div>
+			<div class="barrier" id="right"></div>
+			<div id="dot1" class="smalldot"></div>
+			<div id="dot2" class="smalldot"></div>
+			<div id="dot3" class="smalldot"></div>
+			<div id="dot4" class="smalldot"></div>
+			<div id="dot5" class="smalldot"></div>
+			<div id="dot6" class="smalldot"></div>
+			<div id="dot7" class="smalldot"></div>
+			<div id="dot8" class="smalldot"></div>
+			<div id="dot9" class="smalldot"></div>
+			<div id="dot10" class="smalldot"></div>
+			<div id="dot11" class="smalldot"></div>
+			<div id="dot12" class="smalldot"></div>
+			<div id="dot13" class="smalldot"></div>
+			<div id="dot14" class="smalldot"></div>
+			<div id="dot15" class="smalldot"></div>
+			<div id="dot16" class="smalldot"></div>
+			<div id="dot17" class="smalldot"></div>
+			<div id="dot18" class="smalldot"></div>
+			<div id="dot19" class="smalldot"></div>
+			<div id="dot20" class="smalldot"></div>
+			<div id="dot21" class="smalldot"></div>
+			<div id="dot22" class="smalldot"></div>
+			<div class="ghost movingGhost">
+				<div class="ghostEye leftEye">
+					<div class="iris"></div>
+				</div>
+				<div class="ghostEye rightEye">
+					<div class="iris"></div>
+				</div>
+				<div class="ghostLeg"></div>
+			</div>
+			<div class="hiddenBoxSmall">
+				<p>I'd rather you read about us where we're trapped</p>
+			</div>
+			<div class="pacman">
+				<div class="pacmanTophalf"></div>
+				<div class="eye"></div>
+				<div class="pacmanBottomhalf"></div>
+			</div>
+			<div class="hiddenBoxSmall">
+				<p>Press the button "More" to read about me</p>
+			</div>
+			<div id="rounddot1" class="dot"></div>
+			<div class="hiddenBoxSmall">
+				<p>When Pacman eats these he has superpowers for a short while, and can eat ghosts!</p>
+			</div>
+			<div id="rounddot2" class="dot"></div>
+			<div class="hiddenBoxSmall">
+				<p>When Pacman eats these he has superpowers for a short while, and can eat ghosts!</p>
+			</div>
+			<div id="rounddot3" class="dot"></div>
+			<div class="hiddenBoxSmall">
+				<p>When Pacman eats these he has superpowers for a short while, and can eat ghosts!</p>
+			</div>
+			<div id="rounddot4" class="dot"></div>
+			<div class="hiddenBoxSmall">
+				<p>When Pacman eats these he has superpowers for a short while, and can eat ghosts!</p>
+			</div>
+			<div class="ghostContainer">
+				<div class="gateLine">
+					<div class="gateLineAni"></div>
+				</div>
+				<div class="hiddenBoxSmall">
+					<p>This gates opens to let out ghosts from time to time.</p>
+				</div>
+				<div class="ghostSubContainer">
+					<div class="ghost clyde">
+						<div class="ghostEye leftEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostEye rightEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostLeg"></div>
+					</div>
+					<div class="hiddenBox">
+						<h3>Clyde (クライド Kuraido)</h3>
+						<p>
+							Also known as Guzuta, is one of the four main ghosts in the Pac-Man series. While the other three ghosts are off
+							chasing Pac-Man, Clyde will be off doing his own thing. He is typically portrayed as the least intelligent and most
+							submissive ghost. He is good friends with Blinky, Pinky, and Inky.
+						</p>
+					</div>
+					<div class="ghost blinky">
+						<div class="ghostEye leftEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostEye rightEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostLeg"></div>
+					</div>
+					<div class="hiddenBox">
+						<h3>Blinky (ブリンキー Burinkii)</h3>
+						<p>
+							Also known as Akabei, is the leader of the Ghosts and the arch-enemy of Pac-Man. He is also portrayed as the most
+							aggressive ghost who always chases Pac-Man, and is hard to shake once he starts. He is known to have a short
+							temper, and is good friends with Pinky, Inky, and Clyde. He also has a daughter named Yum-Yum.
+						</p>
+					</div>
+					<div class="ghost pinky">
+						<div class="ghostEye leftEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostEye rightEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostLeg"></div>
+					</div>
+					<div class="hiddenBox">
+						<h3>Pinky (ピンキー Pinkii)</h3>
+						<p>
+							Is one of the four main ghosts in the Pac-Man series. She represents as the only female ghost and likes to be
+							pretty. She attempts to ambush Pac-Man by moving parallel to him. In certain continuities, Pinky has been shown to
+							have a crush on Pac-Man, which normally goes unreciprocated.
+						</p>
+					</div>
+					<div class="ghost inky">
+						<div class="ghostEye leftEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostEye rightEye">
+							<div class="iris"></div>
+						</div>
+						<div class="ghostLeg"></div>
+					</div>
+					<div class="hiddenBox" id="textbox-4">
+						<h3>Inky (インキー Inki)</h3>
+						<p>
+							also known as Aosuke, is one of the four main ghosts in the Pac-Man series. He is often depicted as a goofy and
+							slow-headed ghost, not pursuing Pac-Man unless other ghosts are near. He is good friends with Blinky, Pinky, and
+							Clyde.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="footerBox">
+				<div class="footer-text" tabindex="1">
+					<h3>
+						If it's moving or animated, you can
+						<a href="https://www.dictionary.com/browse/hover" target="_blank">"Huuuuver"</a> over it to read more. Try it!
+					</h3>
+				</div>
+				<div class="footer-audio">
+					<p class="audioComment">Press play for the the Pacman theme song</p>
+					<audio controls loop>
+						<source src="audio/pacman_beginning.wav" type="audio/mpeg" />
+						Your browser does not support the audio element.
+					</audio>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

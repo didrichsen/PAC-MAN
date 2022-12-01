@@ -1,0 +1,892 @@
+body {
+     background: black;
+     font-family: sans-serif;
+     color: azure;
+}
+a {
+     color: inherit;
+     text-decoration: inherit;
+}
+h3 {
+     font-weight: bolder;
+}
+
+.mazeDiv {
+     position: absolute;
+     left: 50%;
+     transform: translate(-50%);
+     z-index: 1;
+}
+
+#maze-image {
+     width: 900px;
+     z-index: 1;
+}
+
+/*
+     Header-container til pushbuttons og scoreboard
+     Bruker inline-flex for å legge elementene på linje,
+     og justify-content: space-evenly for å plassere de.
+*/
+.header {
+     position: relative;
+     display: inline-flex;
+     justify-content: space-evenly;
+     align-items: center;
+     left: 50%;
+     transform: translate(-50%);
+     height: auto;
+     width: 900px;
+     z-index: 4;
+}
+/*
+     Styling av pushbuttons for å navigere til forrige eller neste side.
+*/
+
+.pushBtn {
+     color: white;
+     display: flex;
+     width: 68px;
+     height: 68px;
+     background-color: red;
+     border-radius: 50%;
+     cursor: pointer;
+     box-shadow: 0 0 2px 8px rgb(225, 0, 0), inset 0 0 6px 1px black;
+     transition: all 100ms ease;
+     font-size: 14px;
+     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+     margin: 12px;
+     justify-content: center;
+     align-items: center;
+}
+
+.pushBtn:hover {
+     background-color: rgb(235, 0, 0);
+     box-shadow: 0 0 2px 8px rgb(225, 0, 0), inset 0 0 6px 1px black;
+     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+
+.pushBtn:active {
+     box-shadow: 0 0 2px 8px rgb(225, 0, 0), inset 0 0 6px 3px black;
+     background-color: rgb(235, 0, 0);
+     font-size: 13px;
+}
+
+/*
+     Styling og animasjon av scoreboard. Timingen er manuelt syncet
+     med animasjonen av at Pacman spiser dot'er. Her har vi også brukt en
+     google webfont for å gi et litt mer autentisk uttrykk :)
+*/
+.scoreboard {
+     position: relative;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border: 10px double rgb(0, 0, 210);
+     border-radius: 5px;
+     width: 200px;
+     height: 60px;
+     font-family: "Silkscreen", sans-serif;
+     font-weight: bold;
+     font-size: 20px;
+     padding: 3px;
+     flex-wrap: wrap;
+}
+.scoreboard:hover + .hiddenBoxSmall {
+     display: block;
+}
+
+.scoreboard:before {
+     content: "Score:";
+}
+
+.scoreboard:after {
+     content: "00000000000";
+     animation: highscore 10s linear 3s 1 forwards;
+}
+
+@keyframes highscore {
+     0% {
+          content: "00000000000";
+     }
+     4.5% {
+          content: "00000001000";
+     }
+     9% {
+          content: "00000002000";
+     }
+     13.5% {
+          content: "00000003000";
+     }
+     18% {
+          content: "00000004000";
+     }
+     22.5% {
+          content: "00000005000";
+     }
+     27% {
+          content: "00000006000";
+     }
+     31.5% {
+          content: "00000007000";
+     }
+     36% {
+          content: "00000008000";
+     }
+     40.5% {
+          content: "00000009000";
+     }
+     45% {
+          content: "00000010000";
+     }
+     49.5% {
+          content: "00000011000";
+     }
+     54% {
+          content: "00000012000";
+     }
+     58.5% {
+          content: "00000013000";
+     }
+     63% {
+          content: "00000014000";
+     }
+     67.5% {
+          content: "00000015000";
+     }
+     72% {
+          content: "00000016000";
+     }
+     76.5% {
+          content: "00000017000";
+     }
+     81% {
+          content: "00000018000";
+     }
+     85.5% {
+          content: "00000019000";
+     }
+     90% {
+          content: "00000020000";
+     }
+     94.5% {
+          content: "00000021000";
+     }
+     99% {
+          content: "00000022000";
+     }
+     100% {
+          content: "00000022000";
+     }
+}
+
+/*
+     Styling og animasjon i området vi plasserer de "statiske" spøkelsene
+*/
+.ghostContainer {
+     position: absolute;
+     z-index: 5;
+     top: 440px;
+     left: 50%;
+     transform: translate(-50%);
+}
+
+.ghostSubContainer {
+     display: inline-flex;
+     justify-content: space-between;
+     align-items: center;
+     z-index: 4;
+     width: 180px;
+     height: 65px;
+}
+
+@keyframes animateGate {
+     0% {
+          width: 0px;
+     }
+     50% {
+          width: 0px;
+     }
+     100% {
+          width: 58px;
+     }
+}
+.gateLine {
+     width: 58px;
+     height: 18px;
+     position: absolute;
+     top: -38px;
+     left: 50%;
+     transform: translateX(-50%);
+}
+.gateLineAni {
+     content: "";
+     width: 100%;
+     height: 100%;
+     position: absolute;
+     left: 50%;
+     transform: translateX(-50%);
+     background: black;
+     animation: animateGate 3s linear infinite alternate;
+}
+
+.gateLine:hover + .hiddenBoxSmall {
+     display: block;
+}
+
+/*
+     Egen styling og animasjon av det ene spøkelset som er ute
+     og beveger seg.
+*/
+.movingGhost {
+     position: absolute;
+     top: 30px;
+     left: 36px;
+     margin: 3px;
+     background: blue;
+     z-index: 2;
+     animation: moveghost 20s infinite linear reverse;
+}
+
+@keyframes moveghost {
+     0% {
+          top: 30px;
+          left: 36px;
+     }
+     15% {
+          top: 30px;
+          left: 380px;
+     }
+     21% {
+          top: 154px;
+          left: 380px;
+     }
+     25% {
+          top: 154px;
+          left: 475px;
+     }
+     31% {
+          top: 30px;
+          left: 475px;
+     }
+     46% {
+          top: 30px;
+          left: 818px;
+     }
+     56% {
+          top: 246px;
+          left: 818px;
+     }
+     62% {
+          top: 246px;
+          left: 662px;
+     }
+     67% {
+          top: 154px;
+          left: 662px;
+     }
+     94% {
+          top: 154px;
+          left: 36px;
+     }
+     100% {
+          top: 30px;
+          left: 36px;
+     }
+}
+
+/*
+     Styling og animasjon av de 4 runde dot'ene
+*/
+@keyframes dotscale {
+     to {
+          transform: scale(2, 2);
+     }
+}
+
+.dot {
+     height: 10px;
+     width: 10px;
+     background-color: bisque;
+     border-radius: 50%;
+     display: inline-block;
+     position: absolute;
+     z-index: 2;
+     animation: dotscale 0.5s infinite alternate;
+}
+
+#rounddot1 {
+     top: 112px;
+     left: 54px;
+     animation-delay: 200ms;
+}
+#rounddot2 {
+     top: 112px;
+     left: 836px;
+     animation-delay: 600ms;
+}
+#rounddot3 {
+     top: 737px;
+     left: 54px;
+     animation-delay: 400ms;
+}
+#rounddot4 {
+     top: 737px;
+     left: 836px;
+     animation-delay: 800ms;
+}
+
+/*
+     hiddenBox og hiddenBoxSmall brukes for å lage boksene som
+     dukker opp når du hovrer over elementet. Elementet du skal vise
+     ved hover MÅ være umiddelbart etter elementet du hovrer over.
+*/
+
+.hiddenBox {
+     display: none;
+     background-color: black;
+     position: absolute;
+     width: 250px;
+     height: auto;
+     padding: 20px;
+     top: 76px;
+     left: 50%;
+     transform: translateX(-50%);
+     border: 10px double red;
+     border-radius: 5px;
+     z-index: 4;
+}
+.hiddenBoxSmall {
+     display: none;
+     background-color: black;
+     position: absolute;
+     width: 200px;
+     height: 100px;
+     padding: 20px;
+     top: 50%;
+     left: 50%;
+     transform: translateX(-50%);
+     border: 10px double red;
+     border-radius: 5px;
+     z-index: 5;
+}
+
+.clyde:hover + .hiddenBox {
+     display: block;
+}
+
+.blinky:hover + .hiddenBox {
+     display: block;
+}
+
+.pinky:hover + .hiddenBox {
+     display: block;
+}
+
+.inky:hover + .hiddenBox {
+     display: block;
+}
+
+.dot:hover + .hiddenBoxSmall {
+     display: block;
+}
+
+.movingGhost:hover + .hiddenBoxSmall {
+     display: block;
+}
+
+.pacman:hover + .hiddenBoxSmall {
+     display: block;
+}
+
+/*
+     Styling av ghost's og deres animasjoner
+*/
+.ghost {
+     z-index: 4;
+     margin: 3px;
+     border-radius: 100% 100% 0 0;
+     height: 42px;
+     width: 36px;
+}
+
+.ghostEye {
+     position: absolute;
+     background-color: white;
+     border-radius: 50%;
+     height: 11px;
+     width: 11px;
+     transform: translate(-50%, -50%);
+}
+
+.leftEye {
+     left: 11px;
+     top: 18px;
+}
+
+.rightEye {
+     left: 25px;
+     top: 18px;
+}
+
+.iris {
+     border-radius: 50%;
+     background-color: black;
+     height: 6px;
+     width: 6px;
+     top: 1px;
+     position: absolute;
+     transform: translate(50%, 50%);
+     animation: eyeMovement 1s ease-in-out infinite alternate;
+}
+.ghostLeg {
+     background-repeat: repeat-x;
+     bottom: 0px;
+     height: 12px;
+     position: absolute;
+     width: 36px;
+     background: linear-gradient(120deg, transparent 75%, black 75%) 6px,
+          linear-gradient(-120deg, transparent 75%, black 75%) -6px;
+     background-size: 12px 12px;
+     animation: legMovement 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes legMovement {
+     from {
+          height: 12px;
+     }
+     to {
+          height: 6px;
+     }
+}
+
+@keyframes eyeMovement {
+     from {
+          left: -2px;
+     }
+     to {
+          left: 2px;
+     }
+}
+
+/*
+     Litt styling og animasjon av hvert enkelt "statisk" spøkelse
+*/
+
+.clyde {
+     background: orange;
+     animation: ghostswirl 3s linear 0s infinite;
+}
+
+.blinky {
+     background: red;
+     animation: ghostswirl 3s linear -0.5s infinite;
+}
+
+.pinky {
+     background: pink;
+     animation: ghostswirl 3s linear -1.5s infinite;
+}
+.inky {
+     background: cyan;
+     animation: ghostswirl 3s linear -1s infinite;
+}
+/*
+     Bruker negative verdier som delay for at det skal se ut som alle
+     animasjonene av spøkelsene starter likt bare på forskjellig stadie
+*/
+
+@keyframes ghostswirl {
+     0% {
+          transform: translate(-4px, -12px);
+     }
+     15% {
+          transform: translate(+4px, -12px);
+     }
+     50% {
+          transform: translate(+4px, +12px);
+     }
+     65% {
+          transform: translate(-4px, +12px);
+     }
+     100% {
+          transform: translate(-4px, -12px);
+     }
+}
+
+/*
+     Styling og animasjon av dot'ene som spises av Pacman.
+     Disse bytter bakgrunnsfarge og har delay i animasjonen per prikk så de skal følge
+     bevegelsene til Pacman
+*/
+.smalldot {
+     height: 10px;
+     width: 10px;
+     background-color: bisque;
+     display: inline-block;
+     position: absolute;
+     z-index: 2;
+     animation: dotRemove 14s linear 1 forwards;
+}
+
+@keyframes dotRemove {
+     0% {
+          background-color: bisque;
+     }
+     1% {
+          background-color: black;
+     }
+     100% {
+          background-color: black;
+     }
+}
+
+/*
+     Mange prikker som må animeres, så kun de som skal bli borte er
+     laget med CSS. Resten er en del av bildet i bakgrunnen
+     Delay er testet ut manuelt for å matche Pacmans bevegelser.
+*/
+
+#dot1 {
+     top: 457px;
+     left: 211px;
+     animation-delay: 3.2s;
+}
+#dot2 {
+     top: 457px;
+     left: 242px;
+     animation-delay: 3.7s;
+}
+#dot3 {
+     top: 457px;
+     left: 273px;
+     animation-delay: 4.2s;
+}
+#dot4 {
+     top: 457px;
+     left: 305px;
+     animation-delay: 4.6s;
+}
+#dot5 {
+     top: 488px;
+     left: 305px;
+     animation-delay: 5.1s;
+}
+#dot6 {
+     top: 519px;
+     left: 305px;
+     animation-delay: 5.6s;
+}
+#dot7 {
+     top: 551px;
+     left: 305px;
+     animation-delay: 6.1s;
+}
+#dot8 {
+     top: 551px;
+     left: 336px;
+     animation-delay: 6.6s;
+}
+#dot9 {
+     top: 551px;
+     left: 367px;
+     animation-delay: 7s;
+}
+#dot10 {
+     top: 551px;
+     left: 398px;
+     animation-delay: 7.4s;
+}
+#dot11 {
+     top: 551px;
+     left: 429px;
+     animation-delay: 7.9s;
+}
+#dot12 {
+     top: 551px;
+     left: 460px;
+     animation-delay: 8.3s;
+}
+#dot13 {
+     top: 551px;
+     left: 492px;
+     animation-delay: 8.7s;
+}
+#dot14 {
+     top: 551px;
+     left: 523px;
+     animation-delay: 9.1s;
+}
+#dot15 {
+     top: 551px;
+     left: 554px;
+     animation-delay: 9.6s;
+}
+#dot16 {
+     top: 551px;
+     left: 586px;
+     animation-delay: 10s;
+}
+#dot17 {
+     top: 519px;
+     left: 586px;
+     animation-delay: 10.5s;
+}
+#dot18 {
+     top: 488px;
+     left: 586px;
+     animation-delay: 10.9s;
+}
+#dot19 {
+     top: 457px;
+     left: 586px;
+     animation-delay: 11.3s;
+}
+#dot20 {
+     top: 457px;
+     left: 617px;
+     animation-delay: 11.7s;
+}
+#dot21 {
+     top: 457px;
+     left: 648px;
+     animation-delay: 12.2s;
+}
+#dot22 {
+     top: 457px;
+     left: 679px;
+     animation-delay: 12.6s;
+}
+
+/* 
+     Styling og animasjon av pacman og animasjon av hans bevegelse
+     på brettet
+*/
+
+.pacman {
+     width: 36px;
+     height: 36px;
+     position: absolute;
+     margin: 3px;
+     top: 441px;
+     left: 289px;
+     z-index: 2;
+     transform-origin: center center;
+     animation: movepacman 16s linear infinite;
+}
+
+.pacmanTophalf {
+     background: yellow;
+     display: flex;
+     height: 18px;
+     width: 36px;
+     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+     z-index: 2;
+     animation: 200ms linear infinite alternate rotateLeft;
+     position: relative;
+     transform-origin: 50% 100%;
+}
+.eye {
+     background: rgb(0, 0, 0);
+     position: absolute;
+     width: 8px;
+     height: 8px;
+     left: 16px;
+     top: 4px;
+     animation: eye 2s infinite 200ms alternate;
+     z-index: 3;
+}
+.pacmanBottomhalf {
+     background: yellow;
+     display: flex;
+     height: 18px;
+     width: 36px;
+     border-radius: 0 0 50% 50% / 0 0 100% 100%;
+     z-index: 2;
+     animation: 200ms linear infinite alternate rotateRight;
+     position: relative;
+     transform-origin: 50% 0%;
+}
+
+@keyframes eye {
+     0% {
+          clip-path: ellipse(40% 40% at 50% 50%);
+     }
+     90% {
+          clip-path: ellipse(40% 40% at 50% 50%);
+     }
+     100% {
+          clip-path: ellipse(50% 0% at 50% 50%);
+     }
+}
+
+@keyframes rotateLeft {
+     from {
+          transform: rotate(0deg);
+     }
+     to {
+          transform: rotate(-45deg);
+     }
+}
+@keyframes rotateRight {
+     from {
+          transform: rotate(0deg);
+     }
+     to {
+          transform: rotate(45deg);
+     }
+}
+
+@keyframes movepacman {
+     0% {
+          top: 441px;
+          left: -35px;
+     }
+     28% {
+          transform: rotate(0deg);
+     }
+     29% {
+          transform: rotate(90deg);
+          top: 441px;
+          left: 289px;
+     }
+     37% {
+          transform: rotate(90deg);
+     }
+     38% {
+          transform: rotate(0deg);
+          top: 534px;
+          left: 289px;
+     }
+     62% {
+          transform: rotate(0deg);
+     }
+     63% {
+          transform: rotate(-90deg);
+          top: 534px;
+          left: 570px;
+     }
+     70% {
+          transform: rotate(-90deg);
+     }
+     71% {
+          transform: rotate(0deg);
+          top: 441px;
+          left: 570px;
+     }
+     100% {
+          top: 441px;
+          left: 890px;
+     }
+}
+
+/*
+     Et lite triks for at det ska se penere ut når Pacman beveger seg fra ene siden av brettet til andre.
+     Tenk på det som et tak over åpningen på venstre og høyre side :)
+*/
+.barrier {
+     height: 55px;
+     width: 50px;
+     position: absolute;
+     background: black;
+     z-index: 4;
+}
+
+#right {
+     top: 435px;
+     left: 890px;
+}
+#left {
+     top: 435px;
+     left: -40px;
+}
+
+/*
+     Bare litt styling av footeren
+*/
+.footerBox {
+     display: flex;
+     justify-content: space-around;
+}
+.footer-text {
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     align-items: flex-start;
+     text-align: center;
+     width: 350px;
+}
+.footer-text:hover + .snakkeBoble {
+     display: flex;
+}
+
+.footer-text:focus + .snakkeBoble {
+     display: flex;
+}
+
+.footer-audio {
+     text-align: center;
+}
+
+/*
+     Styling av audio-avspilleren for å matche siden bedre. Dessverre må denne være synlig for at
+     audio skal fungere optimalt, og den har begrenset med muligheter for styling så lenge man
+     ikke kan bruke Javascript
+*/
+audio {
+     filter: sepia(20%) saturate(70%) grayscale(1) invert(100%);
+     border: 2px solid grey;
+     display: block;
+     border-radius: 50px;
+     width: 250px;
+     height: 25px;
+}
+
+.audioComment {
+     font-size: 14px;
+}
+
+/*
+     En liten "snakkeboble" vi laget kun for å erte Alexander :P
+*/
+
+.snakkeBoble {
+     z-index: 4;
+     display: none;
+     background: black;
+     width: 350px;
+     margin: 50px auto;
+     border: 10px double #00bfb6;
+     border-radius: 5px;
+     padding: 20px;
+     text-align: center;
+     z-index: 4;
+     position: absolute;
+     left: 90px;
+     bottom: 20px;
+}
+
+.sb1:before {
+     content: "";
+     width: 0px;
+     height: 0px;
+     position: absolute;
+     border-left: 14px solid #00bfb6;
+     border-right: 14px solid transparent;
+     border-top: 14px solid #00bfb6;
+     border-bottom: 14px solid transparent;
+     left: 20px;
+     top: 118px;
+}
+.sb1:after {
+     content: "";
+     width: 0px;
+     height: 0px;
+     position: absolute;
+     border-left: 14px solid black;
+     border-right: 14px solid transparent;
+     border-top: 14px solid black;
+     border-bottom: 14px solid transparent;
+     left: 24px;
+     top: 108px;
+}
